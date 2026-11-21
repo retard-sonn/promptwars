@@ -19,27 +19,51 @@ export function StoryChapters() {
   const setProgress = useSceneStore((state) => state.setChapterProgress);
   useGSAP(() => {
     const media = gsap.matchMedia();
-    media.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
+    media.add("(prefers-reduced-motion: no-preference)", () => {
       const chapters = gsap.utils.toArray<HTMLElement>(".story-chapter");
-      gsap.set(chapters.slice(1), { autoAlpha: 0 });
-      const timeline = gsap.timeline({ scrollTrigger: {
-        trigger: root.current, start: "top top", end: "+=3200", pin: true, scrub: 0.8,
-        onUpdate: (self) => setProgress(self.progress),
-      } });
-      timeline.call(() => {
-        const chips = gsap.utils.toArray<HTMLElement>(".story-chip");
-        const state = Flip.getState(chips);
-        chips.forEach((chip) => chip.classList.add("story-chip-lift"));
-        Flip.from(state, { duration: 0.7, absolute: true, ease: "expo.out" });
-      }, [], 0.35);
-      chapters.slice(1).forEach((chapter, index) => {
-        timeline.to(chapters[index], { autoAlpha: 0, y: -40, duration: 0.45 }, index + 1)
-          .fromTo(chapter, { autoAlpha: 0, y: 45 }, { autoAlpha: 1, y: 0, duration: 0.55 }, index + 1.15);
+      ScrollTrigger.batch(chapters, {
+        start: "top 94%",
+        once: true,
+        onEnter: (batch) => gsap.fromTo(batch, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.08, ease: "expo.out" }),
       });
-      timeline.to(".story-shield-path", { morphSVG: "M50 88 24 62 36 50 50 64 76 36 88 48Z", duration: 0.8 }, 3.25)
-        .fromTo(".source-nodes > div", { autoAlpha: 0.35 }, { autoAlpha: 1, stagger: 0.2, duration: 0.3 }, 2.2)
-        .fromTo(".story-verdict", { scale: 0.8, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5 }, 3.4)
-        .fromTo(".story-action", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.12, duration: 0.4 }, 4.25);
+      ScrollTrigger.create({
+        trigger: ".story-message",
+        start: "top 90%",
+        once: true,
+        onEnter: () => {
+          const chips = gsap.utils.toArray<HTMLElement>(".story-chip");
+          const state = Flip.getState(chips);
+          chips.forEach((chip) => chip.classList.add("story-chip-lift"));
+          Flip.from(state, { duration: 0.5, absolute: false, ease: "expo.out" });
+        },
+      });
+      ScrollTrigger.create({
+        trigger: ".story-sources",
+        start: "top 88%",
+        once: true,
+        onEnter: () => gsap.fromTo(".source-nodes > div", { opacity: 0.45 }, { opacity: 1, stagger: 0.12, duration: 0.35 }),
+      });
+      ScrollTrigger.create({
+        trigger: ".story-shield-path",
+        start: "top 90%",
+        once: true,
+        onEnter: () => {
+          gsap.to(".story-shield-path", { morphSVG: "M50 88 24 62 36 50 50 64 76 36 88 48Z", duration: 0.65 });
+          gsap.fromTo(".story-verdict", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45 });
+        },
+      });
+      ScrollTrigger.create({
+        trigger: ".story-actions",
+        start: "top 88%",
+        once: true,
+        onEnter: () => gsap.fromTo(".story-action", { y: 16, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.35 }),
+      });
+      ScrollTrigger.create({
+        trigger: root.current,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: (self) => setProgress(self.progress),
+      });
     });
     return () => {
       media.revert();

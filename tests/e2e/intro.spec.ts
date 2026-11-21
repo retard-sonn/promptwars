@@ -24,6 +24,16 @@ test("skips the opening on scroll", async ({ app }) => {
   await expect(app.locator(".opening")).toBeHidden();
 });
 
+test("keeps every story chapter visible after scrolling", async ({ app }) => {
+  await app.locator(".story-actions").scrollIntoViewIfNeeded();
+  const states = await app.locator(".story-chapter").evaluateAll((chapters) => chapters.map((chapter) => ({
+    opacity: getComputedStyle(chapter).opacity,
+    visibility: getComputedStyle(chapter).visibility,
+  })));
+  for (const state of states) expect(state).toEqual({ opacity: "1", visibility: "visible" });
+  await expect(app.locator(".pin-spacer")).toHaveCount(0);
+});
+
 test("uses the static final state with reduced motion", async ({ app }) => {
   await app.emulateMedia({ reducedMotion: "reduce" });
   await app.goto("/");
