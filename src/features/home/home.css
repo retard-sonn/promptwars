@@ -1,0 +1,80 @@
+.home-hero { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 24px; align-items: center; padding-block: 142px 84px; }
+.hero-copy { grid-column: 1 / 7; position: relative; z-index: 2; }
+.hero-copy h1 { min-height: 2.94em; margin-bottom: 24px; font-size: clamp(3rem, 5.4vw, 5.6rem); }
+.hero-sub { max-width: 650px; margin-bottom: 30px; color: var(--ink-2); font-size: 19px; }
+.composer { overflow: hidden; }
+.composer label { display: block; margin-bottom: 10px; font-weight: 650; }
+.composer-tabs { display: flex; width: fit-content; margin-bottom: 24px; padding: 4px; border-radius: 999px; background: var(--persimmon-100); }
+.composer-tabs button { position: relative; min-width: 98px; border: 0; border-radius: 999px; background: transparent; padding: 10px 16px; }
+.composer-tabs button > span:not(.tab-active) { position: relative; z-index: 1; }
+.tab-active { position: absolute; inset: 0; border-radius: 999px; background: var(--white); box-shadow: 0 2px 8px rgba(236,88,0,0.12); }
+.composer-input { min-height: 128px; resize: none; }
+.channel-chips, .sample-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip { min-height: 36px; border: 1px solid rgba(10,10,10,0.12); border-radius: 999px; background: rgba(255,255,255,0.64); padding: 7px 13px; font-size: 13px; }
+.chip-active { background: var(--persimmon-200); border-color: var(--persimmon-600); }
+.composer-actions { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
+.privacy-note { margin: 14px 0 0; color: var(--ink-2); }
+.form-error { margin: 16px 0 0; border-left: 3px solid var(--alarm); padding-left: 12px; }
+.file-drop { display: grid; place-items: center; min-height: 150px; border: 1px dashed var(--persimmon-700); border-radius: 20px; background: var(--persimmon-100); padding: 24px; }
+.file-drop input { max-width: 100%; }
+.hero-scene { grid-column: 7 / 13; position: relative; min-height: 630px; }
+.scene-time { position: absolute; top: 16px; right: 10%; z-index: 3; border: 1px solid rgba(255,255,255,0.75); border-radius: 999px; background: rgba(255,255,255,0.88); padding: 8px 18px; font-size: 14px; }
+.scene-card { position: absolute; top: 92px; left: 4%; z-index: 2; width: 88%; border-radius: 36px; padding: 34px; rotate: 4deg; transition: background-color 240ms, rotate 600ms; }
+.scene-sender { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; font-weight: 650; }
+.scene-card > p { font-size: clamp(20px, 2vw, 29px); line-height: 1.2; letter-spacing: -0.025em; }
+.scene-url { display: block; overflow-wrap: anywhere; color: var(--ink); font-size: 13px; }
+.scene-evidence { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.scene-evidence span { border-bottom: 2px solid var(--persimmon-500); padding-bottom: 4px; font-size: 13px; }
+.scene-shield { position: absolute; right: 0; bottom: 112px; z-index: 3; filter: drop-shadow(0 20px 28px rgba(236,88,0,0.2)); }
+.scene-hook { position: absolute; bottom: 104px; left: 4%; rotate: -20deg; }
+.scene-caption { position: absolute; right: 0; bottom: 12px; left: 8%; color: var(--ink-2); font-size: 14px; }
+.hero-scene[data-state="checking"] .scene-card::after { content: ""; position: absolute; inset: 12px; border-radius: 26px; border-top: 3px solid var(--persimmon-600); animation: scene-scan 1.3s linear infinite; }
+.hero-scene[data-state="focused"] .scene-card { rotate: 1deg; }
+.hero-scene[data-verdict="Likely a scam"] .scene-card { background: rgba(255,106,31,0.32); rotate: 0deg; }
+.hero-scene[data-verdict="Suspicious"] .scene-card { border: 2px solid var(--caution); }
+.hero-scene[data-verdict="No clear signs of fraud"] .scene-hook { opacity: 0.35; }
+@keyframes scene-scan { from { translate: 0 0; } to { translate: 0 280px; } }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
+.section-heading h2 { margin-bottom: 0; }
+.section-heading > a { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.pattern-preview-list { border-top: 1px solid rgba(10,10,10,0.16); }
+.pattern-preview-list > a { display: grid; grid-template-columns: 1fr 2fr 0.5fr; gap: 24px; align-items: center; padding: 26px 0; border-bottom: 1px solid rgba(10,10,10,0.16); }
+.pattern-preview-list p { margin: 0; color: var(--ink-2); }
+.pattern-preview-list span { text-align: right; }
+.practice-teaser { display: flex; align-items: center; justify-content: space-between; gap: 36px; margin-bottom: 100px; }
+.practice-teaser h2 { margin-bottom: 16px; }
+.practice-teaser p { max-width: 720px; margin: 0; }
+.practice-teaser .button { flex-shrink: 0; }
+.emergency-band { background: var(--persimmon-400); padding-block: 64px; }
+.emergency-band .container { display: flex; align-items: center; gap: 32px; }
+.emergency-band h2 { margin-bottom: 14px; }
+.emergency-band p { max-width: 760px; margin: 0; }
+.emergency-band .button { margin-left: auto; flex-shrink: 0; }
+.report-loading { margin-bottom: 80px; }
+.report-loading .skeleton { height: 130px; margin-bottom: 20px; }
+@media (max-width: 980px) {
+  .home-hero { grid-template-columns: 1fr; padding-top: 120px; }
+  .hero-copy, .hero-scene { grid-column: 1; }
+  .hero-scene { min-height: 520px; }
+  .scene-card { left: 10%; width: 80%; }
+  .emergency-band .container { flex-wrap: wrap; }
+  .emergency-band .button { margin-left: 0; }
+}
+@media (max-width: 640px) {
+  .home-hero { padding-bottom: 48px; }
+  .hero-copy h1 { min-height: 3.92em; font-size: clamp(2.75rem, 13vw, 4.2rem); }
+  .hero-sub { font-size: 17px; }
+  .composer { padding: 20px; }
+  .composer-tabs { width: 100%; }
+  .composer-tabs button { min-width: 0; flex: 1; padding-inline: 8px; }
+  .hero-scene { min-height: 440px; }
+  .scene-card { top: 64px; padding: 24px; }
+  .scene-shield { bottom: 80px; }
+  .scene-shield svg { width: 82px; height: 82px; }
+  .scene-hook { bottom: 72px; }
+  .scene-caption { bottom: 0; }
+  .section-heading, .practice-teaser { align-items: flex-start; flex-direction: column; }
+  .pattern-preview-list > a { grid-template-columns: 1fr; gap: 10px; }
+  .pattern-preview-list span { text-align: left; }
+  .emergency-band .container { align-items: flex-start; flex-direction: column; }
+}

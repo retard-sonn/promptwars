@@ -1,0 +1,23 @@
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+.tmp/
+.npm-cache/
+.agents/
+docs/screenshots/
+*.tsbuildinfo
+*.log
+.DS_Store
+.env*
+!.env.example
+public/models/*.glb
+!public/models/.gitkeep
+
+# playwright
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
