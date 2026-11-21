@@ -41,33 +41,66 @@ describe("link rules", () => {
   it("detects a lookalike character", () => {
     const result = analyseLink("https://paypa1.example/login", span, "us");
     expect(result.lookalikeOf).toBe("paypal.com");
-    expect(result.findings.some((finding) => finding.code === "lookalike-domain")).toBe(true);
+    expect(result.findings.some((finding) => finding.code === "lookalike-domain")).toBe(
+      true,
+    );
   });
   it("detects a brand on an unrelated domain", () => {
-    expect(analyseLink("https://indiapost-redelivery.example/pay", span, "in").findings[0]?.code).toBe("brand-mismatch");
+    expect(
+      analyseLink("https://indiapost-redelivery.example/pay", span, "in").findings[0]
+        ?.code,
+    ).toBe("brand-mismatch");
   });
   it("allows an official domain and its subdomains", () => {
-    expect(analyseLink("https://secure.paypal.com/signin", span, "us").findings).toEqual([]);
+    expect(analyseLink("https://secure.paypal.com/signin", span, "us").findings).toEqual(
+      [],
+    );
   });
   it("detects IP hosts, @ tricks, punycode and shorteners", () => {
-    expect(analyseLink("http://192.0.2.1", span, "generic").findings.some((finding) => finding.code === "ip-host")).toBe(true);
-    expect(analyseLink("https://paypal.com@phish.example", span, "generic").findings.some((finding) => finding.code === "at-trick")).toBe(true);
-    expect(analyseLink("https://xn--pypal-4ve.example", span, "generic").findings.some((finding) => finding.code === "punycode")).toBe(true);
-    expect(analyseLink("https://short.example/a", span, "generic").findings.some((finding) => finding.code === "shortener")).toBe(true);
+    expect(
+      analyseLink("http://192.0.2.1", span, "generic").findings.some(
+        (finding) => finding.code === "ip-host",
+      ),
+    ).toBe(true);
+    expect(
+      analyseLink("https://paypal.com@phish.example", span, "generic").findings.some(
+        (finding) => finding.code === "at-trick",
+      ),
+    ).toBe(true);
+    expect(
+      analyseLink("https://xn--pypal-4ve.example", span, "generic").findings.some(
+        (finding) => finding.code === "punycode",
+      ),
+    ).toBe(true);
+    expect(
+      analyseLink("https://short.example/a", span, "generic").findings.some(
+        (finding) => finding.code === "shortener",
+      ),
+    ).toBe(true);
   });
   it("calculates edit distance and URL anatomy", () => {
     expect(editDistance("paypa1", "paypal")).toBe(1);
-    expect(urlAnatomy(new URL("https://pay.bills.example.co.uk/path?q=1"))).toEqual({ scheme: "https", subdomain: "pay.bills", domain: "example", tld: "co.uk", path: "/path?q=1" });
+    expect(urlAnatomy(new URL("https://pay.bills.example.co.uk/path?q=1"))).toEqual({
+      scheme: "https",
+      subdomain: "pay.bills",
+      domain: "example",
+      tld: "co.uk",
+      path: "/path?q=1",
+    });
   });
 });
 
 describe("sender rules", () => {
   it("detects display-name spoofing", () => {
     const text = "From: PayPal <service@random.example>\nVerify your account";
-    expect(runSenderRules(text, extract(text, "us"), "us")[0]?.id).toBe("sender.display-domain");
+    expect(runSenderRules(text, extract(text, "us"), "us")[0]?.id).toBe(
+      "sender.display-domain",
+    );
   });
   it("detects a foreign number naming a local brand", () => {
     const text = "From: +44 7700 900123\nSBI account notice";
-    expect(runSenderRules(text, extract(text, "in"), "in")[0]?.id).toBe("sender.foreign-number");
+    expect(runSenderRules(text, extract(text, "in"), "in")[0]?.id).toBe(
+      "sender.foreign-number",
+    );
   });
 });

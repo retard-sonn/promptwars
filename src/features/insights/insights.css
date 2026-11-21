@@ -1,0 +1,82 @@
+.insights-layout {
+  display: grid;
+  gap: 36px;
+}
+.insights-layout > section {
+  min-width: 0;
+}
+.insights-layout h2 {
+  font-size: 30px;
+}
+.tactic-chart-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.tactic-chart {
+  width: 100%;
+  min-width: 580px;
+}
+.chart-count {
+  fill: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+}
+.chart-label {
+  fill: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+.tactic-chart-wrap table {
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+.tactic-chart-wrap th,
+.tactic-chart-wrap td {
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.12);
+  text-align: left;
+}
+.insights-empty {
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.user-chart {
+  min-height: 320px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+}
+.prose-page {
+  max-width: 900px;
+}
+.prose-page section {
+  padding-block: 30px;
+  border-top: 1px solid rgba(10, 10, 10, 0.14);
+}
+.prose-page h2 {
+  margin-bottom: 18px;
+  font-size: 30px;
+}
+.prose-page li {
+  margin-bottom: 10px;
+}
+.saved-report {
+  padding-top: 110px;
+}
+.saved-model {
+  height: 320px;
+}
+.verdict-model,
+.verdict-webgl {
+  height: 320px;
+}
+@media (max-width: 640px) {
+  .saved-model,
+  .verdict-model,
+  .verdict-webgl {
+    height: 250px;
+  }
+}

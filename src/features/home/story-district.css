@@ -1,0 +1,50 @@
+.story-checklist p {
+  border-left: 2px solid var(--persimmon-500);
+  padding-left: 12px;
+}
+.story-actions .district-map {
+  grid-column: 1 / -1;
+}
+.district-map {
+  position: relative;
+  min-height: 340px;
+}
+.district-webgl {
+  height: 300px;
+}
+.district-fallback {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.district-fallback button {
+  display: flex;
+  min-width: 110px;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+}
+.district-bar {
+  display: block;
+  width: 26px;
+  border-radius: 8px 8px 0 0;
+  background: var(--persimmon-300);
+}
+.verdict-likely-a-scam .verdict-stamp {
+  animation: verdict-shake 240ms ease-out;
+}
+@keyframes verdict-shake {
+  0%,
+  100% {
+    translate: 0;
+  }
+  33% {
+    translate: 2px 0;
+  }
+  66% {
+    translate: -2px 0;
+  }
+}

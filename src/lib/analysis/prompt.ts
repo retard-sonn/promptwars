@@ -9,6 +9,18 @@ export function buildAnalysisPrompt(redactedMessage: string): string {
   ].join("\n");
 }
 
-export function validEvidenceSpan(original: string, quote: string, start: number, end: number) {
-  return Number.isInteger(start) && Number.isInteger(end) && start >= 0 && end > start && end <= original.length && original.slice(start, end) === quote;
+export function validEvidenceSpan(
+  original: string,
+  quote: string,
+  start: number,
+  end: number,
+) {
+  return (
+    Number.isInteger(start) &&
+    Number.isInteger(end) &&
+    start >= 0 &&
+    end > start &&
+    end <= original.length &&
+    original.slice(start, end) === quote
+  );
 }

@@ -2,12 +2,12 @@
 
 Verified and installed on 21 November 2026 with the `skills` CLI. Project copies are in `.agents/skills/` for OpenCode-compatible loading.
 
-| Need | Source | Installed skills |
-|---|---|---|
-| GSAP | https://github.com/greensock/gsap-skills | gsap-core, gsap-react, gsap-plugins, gsap-scrolltrigger, gsap-timeline, gsap-performance |
-| Motion | https://github.com/motiondivision/ai-kit | motion |
-| Frontend design quality | https://github.com/vercel-labs/agent-skills | web-design-guidelines, vercel-react-best-practices |
-| Frontend design process | Existing user skill | ui-design |
+| Need                    | Source                                      | Installed skills                                                                         |
+| ----------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| GSAP                    | https://github.com/greensock/gsap-skills    | gsap-core, gsap-react, gsap-plugins, gsap-scrolltrigger, gsap-timeline, gsap-performance |
+| Motion                  | https://github.com/motiondivision/ai-kit    | motion                                                                                   |
+| Frontend design quality | https://github.com/vercel-labs/agent-skills | web-design-guidelines, vercel-react-best-practices                                       |
+| Frontend design process | Existing user skill                         | ui-design                                                                                |
 
 The official GSAP repository was found through GitHub search and reports that all required plugins ship in the public package. The Motion repository was found through the skills catalog after confirming the publisher on GitHub. Vercel's repository was inspected before selecting its design and React skills.
 

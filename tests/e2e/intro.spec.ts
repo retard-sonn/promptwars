@@ -9,7 +9,9 @@ test("skips the opening by button and keeps the composer usable", async ({ app }
   await app.locator("#message-input").fill("Text entered during the intro");
   await app.getByRole("button", { name: "Skip", exact: true }).click();
   await expect(app.locator(".opening")).toBeHidden();
-  await expect(app.locator("#message-input")).toHaveValue("Text entered during the intro");
+  await expect(app.locator("#message-input")).toHaveValue(
+    "Text entered during the intro",
+  );
 });
 
 test("skips the opening with Escape", async ({ app }) => {
@@ -26,11 +28,14 @@ test("skips the opening on scroll", async ({ app }) => {
 
 test("keeps every story chapter visible after scrolling", async ({ app }) => {
   await app.locator(".story-actions").scrollIntoViewIfNeeded();
-  const states = await app.locator(".story-chapter").evaluateAll((chapters) => chapters.map((chapter) => ({
-    opacity: getComputedStyle(chapter).opacity,
-    visibility: getComputedStyle(chapter).visibility,
-  })));
-  for (const state of states) expect(state).toEqual({ opacity: "1", visibility: "visible" });
+  const states = await app.locator(".story-chapter").evaluateAll((chapters) =>
+    chapters.map((chapter) => ({
+      opacity: getComputedStyle(chapter).opacity,
+      visibility: getComputedStyle(chapter).visibility,
+    })),
+  );
+  for (const state of states)
+    expect(state).toEqual({ opacity: "1", visibility: "visible" });
   await expect(app.locator(".pin-spacer")).toHaveCount(0);
 });
 

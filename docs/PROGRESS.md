@@ -53,3 +53,12 @@ Phase 8 is complete. Final build, typecheck, ESLint, copy scan, 65 unit tests an
 Final local measurements: LCP 380ms, shared root JavaScript 168KB gzipped, 50fps during the opening, 60fps when idle, CLS 0.001, and zero canvases. LCP and bundle targets pass. The opening frame-rate target of 60fps and the exact-zero-CLS target are not fully met. No physical mid-range phone was available for a 30fps check.
 
 Live Bedrock text and image Converse calls pass with `us.moonshotai.kimi-k3.1`. Live Supabase RLS execution and live threat-source calls beyond the OpenPhish feed availability check remain unverified. The visible frontend uses animated pixel art with no WebGL dependency.
+
+## Final refinement
+
+- Removed 182 unused 3D packages and fixed all npm audit findings. Current audit is zero vulnerabilities.
+- Added `scripts/check-quality.mjs` for the 300-line file limit and made Prettier part of `npm run lint`.
+- Added GitHub Actions for install, typecheck, lint, unit tests and production builds.
+- Added provider-output parsing tests, provider reuse and bounded in-memory caches.
+- Split large stylesheets and preserved every existing visual state.
+- Final verification: 69 unit tests and 47 Playwright tests pass. Typecheck, lint, formatting, build and audit pass.

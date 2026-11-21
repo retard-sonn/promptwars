@@ -1,69 +1,264 @@
-.case-report { margin-bottom: 100px; }
-.case-header { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 22px; color: var(--ink-2); font-size: 13px; }
-.case-header > div { display: flex; flex-wrap: wrap; gap: 16px; }
-.verdict-block { display: grid; grid-template-columns: 1.6fr 0.8fr; gap: 32px; align-items: center; padding-block: 28px 42px; }
-.verdict-stamp { display: flex; align-items: center; gap: 20px; border: 2px solid var(--persimmon-500); border-radius: 28px 44px 28px 44px; padding: 24px; }
-.verdict-stamp h2 { margin-bottom: 10px; font-size: clamp(2rem, 4vw, 3.8rem); }
-.verdict-stamp p { margin: 0; }
-.verdict-likely-a-scam .verdict-stamp { border-color: var(--alarm); }
-.verdict-suspicious .verdict-stamp { border-color: var(--caution); border-style: dashed; }
-.verdict-no-clear-signs-of-fraud .verdict-stamp { border-color: var(--ok); border-radius: 999px; }
-.score-block { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.gauge-wrap { text-align: center; }
-.gauge { position: relative; width: 210px; }
-.gauge svg { width: 100%; }
-.gauge-track, .gauge-value { fill: none; stroke-width: 14; stroke-linecap: round; }
-.gauge-track { stroke: var(--persimmon-100); }
-.gauge-value { stroke: var(--persimmon-500); }
-.gauge-needle { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
-.gauge-pin { fill: var(--ink); }
-.gauge strong { position: absolute; right: 0; bottom: 0; left: 0; font-size: 34px; }
-.gauge strong span { font-size: 14px; }
-.report-section { padding-block: 32px; border-top: 1px solid rgba(10,10,10,0.14); }
-.report-section > h2 { margin-bottom: 22px; font-size: 24px; letter-spacing: -0.025em; }
-.annotated-message { border: 1px solid rgba(10,10,10,0.1); border-radius: 20px; background: rgba(255,255,255,0.74); padding: 24px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.85; }
-.signal-span { display: inline; border: 0; border-bottom: 2px solid var(--persimmon-600); border-radius: 6px; background: var(--persimmon-200); padding: 2px 3px; text-align: left; }
-.signal-span:hover, .signal-span:focus { background: var(--persimmon-300); }
-.tactic-list { display: grid; gap: 12px; margin-top: 20px; }
-.tactic-row { border-left: 3px solid var(--persimmon-500); border-radius: 0 16px 16px 0; background: rgba(255,227,209,0.52); padding: 18px 20px; }
-.tactic-row > div { display: flex; justify-content: space-between; gap: 16px; }
-.tactic-row h3 { margin-bottom: 8px; font-size: 18px; text-transform: capitalize; }
-.tactic-row blockquote { margin: 8px 0; font-weight: 600; overflow-wrap: anywhere; }
-.tactic-row p { margin-bottom: 0; color: var(--ink-2); }
-.link-report { padding-block: 16px; border-bottom: 1px solid rgba(10,10,10,0.12); }
-.link-report > h3 { overflow-wrap: anywhere; }
-.url-anatomy { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 8px; margin-block: 18px; }
-.url-anatomy > div { min-width: 0; border-radius: 12px; background: var(--persimmon-100); padding: 12px; }
-.url-anatomy span { display: block; margin-bottom: 5px; color: var(--ink-2); font-size: 12px; }
-.url-anatomy code { display: block; overflow-wrap: anywhere; }
-.lookalike { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-.finding-list { padding-left: 20px; }
-.finding-list p { margin: 4px 0 12px; color: var(--ink-2); }
-.threat-row { display: grid; grid-template-columns: 160px 90px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(10,10,10,0.1); }
-.threat-row p { margin: 0; color: var(--ink-2); }
-.threat-row > span { font-weight: 650; text-transform: capitalize; }
-.threat-flagged { border-left: 3px solid var(--alarm); padding-left: 10px; }
-.threat-clean { border-left: 3px solid var(--ok); padding-left: 10px; }
-.sender-details { border-radius: 16px; background: var(--persimmon-100); padding: 18px; overflow-wrap: anywhere; }
-.action-list { display: grid; gap: 12px; padding-left: 24px; }
-.action-list li { padding-left: 6px; }
-.action-list li::marker { font-weight: 700; }
-.copy-button { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; border: 1px solid rgba(10,10,10,0.14); border-radius: 999px; background: rgba(255,255,255,0.72); padding: 7px 12px; font-size: 12px; }
-details summary { cursor: pointer; font-weight: 650; }
-details pre { max-height: 340px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 16px; background: var(--persimmon-100); padding: 18px; font-family: var(--font-mono); font-size: 13px; }
-.provider-trace { display: grid; gap: 12px; margin-top: 18px; }
-.provider-trace > div { border-left: 2px solid var(--persimmon-500); padding-left: 14px; }
-.provider-trace span { margin-left: 12px; color: var(--ink-2); }
-.provider-trace p { margin: 4px 0; color: var(--ink-2); }
+.case-report {
+  margin-bottom: 100px;
+}
+.case-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.case-header > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.verdict-block {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 32px;
+  align-items: center;
+  padding-block: 28px 42px;
+}
+.verdict-stamp {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 2px solid var(--persimmon-500);
+  border-radius: 28px 44px 28px 44px;
+  padding: 24px;
+}
+.verdict-stamp h2 {
+  margin-bottom: 10px;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+}
+.verdict-stamp p {
+  margin: 0;
+}
+.verdict-likely-a-scam .verdict-stamp {
+  border-color: var(--alarm);
+}
+.verdict-suspicious .verdict-stamp {
+  border-color: var(--caution);
+  border-style: dashed;
+}
+.verdict-no-clear-signs-of-fraud .verdict-stamp {
+  border-color: var(--ok);
+  border-radius: 999px;
+}
+.score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.gauge-wrap {
+  text-align: center;
+}
+.gauge {
+  position: relative;
+  width: 210px;
+}
+.gauge svg {
+  width: 100%;
+}
+.gauge-track,
+.gauge-value {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+.gauge-track {
+  stroke: var(--persimmon-100);
+}
+.gauge-value {
+  stroke: var(--persimmon-500);
+}
+.gauge-needle {
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.gauge-pin {
+  fill: var(--ink);
+}
+.gauge strong {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 34px;
+}
+.gauge strong span {
+  font-size: 14px;
+}
+.report-section {
+  padding-block: 32px;
+  border-top: 1px solid rgba(10, 10, 10, 0.14);
+}
+.report-section > h2 {
+  margin-bottom: 22px;
+  font-size: 24px;
+  letter-spacing: -0.025em;
+}
+.annotated-message {
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 24px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+}
+.signal-span {
+  display: inline;
+  border: 0;
+  border-bottom: 2px solid var(--persimmon-600);
+  border-radius: 6px;
+  background: var(--persimmon-200);
+  padding: 2px 3px;
+  text-align: left;
+}
+.signal-span:hover,
+.signal-span:focus {
+  background: var(--persimmon-300);
+}
+.tactic-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.tactic-row {
+  border-left: 3px solid var(--persimmon-500);
+  border-radius: 0 16px 16px 0;
+  background: rgba(255, 227, 209, 0.52);
+  padding: 18px 20px;
+}
+.tactic-row > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.tactic-row h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+.tactic-row blockquote {
+  margin: 8px 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.tactic-row p {
+  margin-bottom: 0;
+  color: var(--ink-2);
+}
+.link-report {
+  padding-block: 16px;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.12);
+}
+.link-report > h3 {
+  overflow-wrap: anywhere;
+}
+.url-anatomy {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-block: 18px;
+}
+.url-anatomy > div {
+  min-width: 0;
+  border-radius: 12px;
+  background: var(--persimmon-100);
+  padding: 12px;
+}
+.url-anatomy span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.url-anatomy code {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.lookalike {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.finding-list {
+  padding-left: 20px;
+}
+.finding-list p {
+  margin: 4px 0 12px;
+  color: var(--ink-2);
+}
+.threat-row {
+  display: grid;
+  grid-template-columns: 160px 90px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(10, 10, 10, 0.1);
+}
+.threat-row p {
+  margin: 0;
+  color: var(--ink-2);
+}
+.threat-row > span {
+  font-weight: 650;
+  text-transform: capitalize;
+}
+.threat-flagged {
+  border-left: 3px solid var(--alarm);
+  padding-left: 10px;
+}
+.threat-clean {
+  border-left: 3px solid var(--ok);
+  padding-left: 10px;
+}
+.sender-details {
+  border-radius: 16px;
+  background: var(--persimmon-100);
+  padding: 18px;
+  overflow-wrap: anywhere;
+}
 @media (max-width: 760px) {
-  .case-report { padding: 20px; }
-  .case-header, .verdict-block { grid-template-columns: 1fr; }
-  .case-header { flex-direction: column; }
-  .verdict-block { display: grid; }
-  .verdict-stamp { align-items: flex-start; padding: 18px; }
-  .verdict-stamp svg { width: 42px; height: 42px; }
-  .verdict-no-clear-signs-of-fraud .verdict-stamp { border-radius: 28px; }
-  .threat-row { grid-template-columns: 1fr; gap: 4px; }
-  .tactic-row > div { flex-direction: column; gap: 0; }
-  .annotated-message { padding: 18px; }
+  .case-report {
+    padding: 20px;
+  }
+  .case-header,
+  .verdict-block {
+    grid-template-columns: 1fr;
+  }
+  .case-header {
+    flex-direction: column;
+  }
+  .verdict-block {
+    display: grid;
+  }
+  .verdict-stamp {
+    align-items: flex-start;
+    padding: 18px;
+  }
+  .verdict-stamp svg {
+    width: 42px;
+    height: 42px;
+  }
+  .verdict-no-clear-signs-of-fraud .verdict-stamp {
+    border-radius: 28px;
+  }
+  .threat-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .tactic-row > div {
+    flex-direction: column;
+    gap: 0;
+  }
+  .annotated-message {
+    padding: 18px;
+  }
 }

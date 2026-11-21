@@ -12,7 +12,11 @@ async function feed(url: string): Promise<string[]> {
   if (existing) return existing;
   const response = await threatFetch(url);
   if (!response.ok) throw new Error("Feed unavailable");
-  const lines = (await response.text()).split("\n").map((line) => line.trim()).filter(Boolean).slice(0, 200000);
+  const lines = (await response.text())
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 200000);
   const parsed = feedSchema.parse(lines);
   await cacheValue(key, parsed);
   return parsed;
@@ -25,7 +29,17 @@ export async function checkOpenPhish(url: string): Promise<ThreatResult> {
     const entries = await feed(feedUrl);
     const target = url.replace(/\/$/, "");
     const flagged = entries.some((entry) => entry.replace(/\/$/, "") === target);
-    return flagged ? { source, status: "flagged", reason: "OpenPhish lists this exact URL in its current cached feed." } : { source, status: "clean", reason: "OpenPhish did not list this exact URL in its current cached feed." };
+    return flagged
+      ? {
+          source,
+          status: "flagged",
+          reason: "OpenPhish lists this exact URL in its current cached feed.",
+        }
+      : {
+          source,
+          status: "clean",
+          reason: "OpenPhish did not list this exact URL in its current cached feed.",
+        };
   } catch (error) {
     return unavailable(source, errorReason(error));
   }

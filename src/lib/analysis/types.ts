@@ -1,7 +1,8 @@
 export const regionIds = ["in", "us", "uk", "generic"] as const;
 export type RegionId = (typeof regionIds)[number];
 export type Channel = "sms" | "whatsapp" | "email" | "unknown";
-export type Verdict = "Likely a scam" | "Suspicious" | "No clear signs of fraud" | "Not enough to tell";
+export type Verdict =
+  "Likely a scam" | "Suspicious" | "No clear signs of fraud" | "Not enough to tell";
 export type Tactic =
   | "urgency"
   | "impersonation"
@@ -17,7 +18,12 @@ export type Tactic =
 export type Span = { start: number; end: number };
 export type EntityKind = "url" | "phone" | "email" | "upi" | "amount" | "brand";
 export type Entity = { kind: EntityKind; value: string; span: Span };
-export type Sender = { raw: string; displayName?: string; address?: string; phone?: string };
+export type Sender = {
+  raw: string;
+  displayName?: string;
+  address?: string;
+  phone?: string;
+};
 export type Extraction = {
   urls: string[];
   entities: Entity[];

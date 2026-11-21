@@ -14,7 +14,7 @@ StringTune runs on native browser scroll for backdrop parallax and pointer effec
 
 ## Geometry
 
-Blender connectivity was unavailable. The first implementation used procedural React Three Fiber geometry. The latest product direction replaces visible 3D scenes with animated pixel art to reduce frontend weight and avoid WebGL failure modes. The unused 3D source and poster files were removed. District buildings still use real pattern counts and verdict scenes still follow real analysis state.
+Blender connectivity was unavailable. The first implementation used procedural React Three Fiber geometry. The latest product direction replaces visible 3D scenes with animated pixel art to reduce frontend weight and avoid WebGL failure modes. The unused 3D source, poster files and 182 installed packages were removed. District buildings still use real pattern counts and verdict scenes still follow real analysis state.
 
 ## AI model template
 

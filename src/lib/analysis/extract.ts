@@ -1,7 +1,8 @@
 import { getRegionPack } from "./regions";
 import type { Entity, Extraction, RegionId, Sender } from "./types";
 
-const urlPattern = /https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|net|org|in|co|uk|gov|edu|info|online|site|top|xyz|click|link|work|live|example|test)(?::\d{2,5})?(?:\/[^\s<>"']*)?/gi;
+const urlPattern =
+  /https?:\/\/[^\s<>"']+|www\.[^\s<>"']+|(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|net|org|in|co|uk|gov|edu|info|online|site|top|xyz|click|link|work|live|example|test)(?::\d{2,5})?(?:\/[^\s<>"']*)?/gi;
 const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 const phonePattern = /\+?\d[\d\s().-]{7,}\d/g;
 const upiPattern = /[\w.-]{2,}@[a-zA-Z][a-zA-Z0-9-]*/g;
@@ -9,7 +10,10 @@ const amountPattern = /(?:rs\.?|inr|usd|gbp|£|\$|₹)\s?[\d,]+(?:\.\d{1,2})?/gi
 const trailingPunctuation = /[.,!?;:)\]}]+$/;
 
 function matches(input: string, pattern: RegExp) {
-  return Array.from(input.matchAll(pattern), (match) => ({ value: match[0], index: match.index ?? 0 }));
+  return Array.from(input.matchAll(pattern), (match) => ({
+    value: match[0],
+    index: match.index ?? 0,
+  }));
 }
 function escape(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -34,14 +38,26 @@ export function extract(input: string, region: RegionId): Extraction {
     entities.push({ kind: "url", value, span });
     urls.push(value);
   }
-  for (const [kind, pattern] of [["email", emailPattern], ["phone", phonePattern], ["amount", amountPattern]] as const) {
+  for (const [kind, pattern] of [
+    ["email", emailPattern],
+    ["phone", phonePattern],
+    ["amount", amountPattern],
+  ] as const) {
     for (const match of matches(input, pattern)) {
-      entities.push({ kind, value: match.value, span: { start: match.index, end: match.index + match.value.length } });
+      entities.push({
+        kind,
+        value: match.value,
+        span: { start: match.index, end: match.index + match.value.length },
+      });
     }
   }
   for (const match of matches(input, upiPattern)) {
     if (match.value.includes(".", match.value.indexOf("@"))) continue;
-    entities.push({ kind: "upi", value: match.value, span: { start: match.index, end: match.index + match.value.length } });
+    entities.push({
+      kind: "upi",
+      value: match.value,
+      span: { start: match.index, end: match.index + match.value.length },
+    });
   }
   const brands: string[] = [];
   for (const brand of getRegionPack(region).brands) {
@@ -49,9 +65,17 @@ export function extract(input: string, region: RegionId): Extraction {
     const match = pattern.exec(input);
     if (!match || brands.includes(brand.name)) continue;
     brands.push(brand.name);
-    entities.push({ kind: "brand", value: match[0], span: { start: match.index, end: match.index + match[0].length } });
+    entities.push({
+      kind: "brand",
+      value: match[0],
+      span: { start: match.index, end: match.index + match[0].length },
+    });
   }
   const sender = senderFrom(input);
-  const channel = /whatsapp/i.test(input) ? "whatsapp" : sender?.address || /subject\s*:/i.test(input) ? "email" : "unknown";
+  const channel = /whatsapp/i.test(input)
+    ? "whatsapp"
+    : sender?.address || /subject\s*:/i.test(input)
+      ? "email"
+      : "unknown";
   return { urls, entities, brands, sender, channel };
 }

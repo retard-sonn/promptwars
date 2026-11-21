@@ -1,0 +1,54 @@
+.action-list {
+  display: grid;
+  gap: 12px;
+  padding-left: 24px;
+}
+.action-list li {
+  padding-left: 6px;
+}
+.action-list li::marker {
+  font-weight: 700;
+}
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  border: 1px solid rgba(10, 10, 10, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 7px 12px;
+  font-size: 12px;
+}
+details summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+details pre {
+  max-height: 340px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border-radius: 16px;
+  background: var(--persimmon-100);
+  padding: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.provider-trace {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.provider-trace > div {
+  border-left: 2px solid var(--persimmon-500);
+  padding-left: 14px;
+}
+.provider-trace span {
+  margin-left: 12px;
+  color: var(--ink-2);
+}
+.provider-trace p {
+  margin: 4px 0;
+  color: var(--ink-2);
+}

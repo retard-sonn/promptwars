@@ -12,14 +12,17 @@ import { Icon } from "./icon";
 gsap.registerPlugin(useGSAP, DrawSVGPlugin, ScrollTrigger);
 export function MotionIcon({ name, size = 24 }: { name: IconName; size?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  useGSAP(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.from(ref.current?.querySelectorAll(".icon-stroke") ?? [], {
-      drawSVG: 0,
-      duration: 0.8,
-      scrollTrigger: { trigger: ref.current, start: "top 92%", once: true },
-    });
-  }, { scope: ref });
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      gsap.from(ref.current?.querySelectorAll(".icon-stroke") ?? [], {
+        drawSVG: 0,
+        duration: 0.8,
+        scrollTrigger: { trigger: ref.current, start: "top 92%", once: true },
+      });
+    },
+    { scope: ref },
+  );
   return (
     <motion.span
       ref={ref}

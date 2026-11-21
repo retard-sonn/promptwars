@@ -15,7 +15,20 @@ test("checks a standalone link", async ({ app }) => {
 
 test("completes the practice game by keyboard", async ({ app }) => {
   await app.goto("/practice");
-  const answers = ["ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowLeft", "ArrowRight", "ArrowLeft"];
+  const answers = [
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+  ];
   for (const answer of answers) {
     await app.keyboard.press(answer);
     await app.keyboard.press("Enter");

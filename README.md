@@ -67,6 +67,14 @@ Use Cloudflare Turnstile on anonymous analysis. Signed-in users receive the high
 
 The app sends a strict content security policy, `frame-ancestors none`, referrer and permissions policies. Next.js runtime scripts and the Turnstile origin are explicitly allowed. No third-party frame can embed the app.
 
+## Code quality controls
+
+- `npm run lint` enforces ESLint, banned copy, the 300-line file limit and Prettier formatting.
+- `npm test` covers the deterministic engine, provider parsing, security boundaries and regional packs.
+- Playwright validates all public routes at three widths, including axe accessibility, overflow, palette and real user flows.
+- GitHub Actions runs install, typecheck, lint, unit tests and the production build on every push and pull request.
+- Unused 3D packages were removed to reduce install size and dependency surface.
+
 ## Checks
 
 ```bash

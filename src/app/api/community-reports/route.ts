@@ -13,11 +13,27 @@ const submissionSchema = z.object({
 export const runtime = "nodejs";
 export async function POST(request: Request) {
   const service = createSupabaseServiceClient();
-  if (!service) return apiError("Community reporting is unavailable because no account service is configured.", 503, "storage_unavailable");
+  if (!service)
+    return apiError(
+      "Community reporting is unavailable because no account service is configured.",
+      503,
+      "storage_unavailable",
+    );
   const rate = await limitRequest(request);
-  if (!rate.success) return apiError("Too many submissions. Try again in one minute.", 429, "rate_limited", 60);
+  if (!rate.success)
+    return apiError(
+      "Too many submissions. Try again in one minute.",
+      429,
+      "rate_limited",
+      60,
+    );
   const parsed = submissionSchema.safeParse(await parseJson(request));
-  if (!parsed.success) return apiError("Check the scam type and redacted message.", 400, "invalid_submission");
+  if (!parsed.success)
+    return apiError(
+      "Check the scam type and redacted message.",
+      400,
+      "invalid_submission",
+    );
   const user = await getOptionalUser();
   const { error } = await service.from("community_submissions").insert({
     reporter_id: user?.id ?? null,
@@ -27,6 +43,11 @@ export async function POST(request: Request) {
     domain: parsed.data.domain,
     status: "pending",
   });
-  if (error) return apiError("The community report could not be submitted.", 500, "submission_failed");
+  if (error)
+    return apiError(
+      "The community report could not be submitted.",
+      500,
+      "submission_failed",
+    );
   return Response.json({ status: "pending" }, { status: 202 });
 }

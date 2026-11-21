@@ -3,11 +3,84 @@ import { PageHero } from "@/components/layout/page-hero";
 
 export const metadata: Metadata = { title: "Methodology and limits" };
 export default function MethodologyPage() {
-  return <main><PageHero title="Methodology and limits"><p>ScamShield explains its decisions so you can check them. It does not prove that a message is genuine or fraudulent.</p></PageHero><div className="container prose-page">
-    <section><h2>How scoring works</h2><p>Local rules produce weighted signals with stable IDs and exact source spans. The combiner takes the highest weight in each tactic and up to two smaller supporting contributions. The total is capped at 100.</p><ul><li>55 to 100: Likely a scam.</li><li>25 to 54: Suspicious.</li><li>Below 25: No clear signs of fraud, with a caveat.</li><li>Very short content: Not enough to tell.</li></ul><p>Confidence is separate from the score. It reflects the amount and independence of available evidence, not the probability that a message is fraudulent.</p></section>
-    <section><h2>AI and threat sources</h2><p>Gemini is the default provider when configured. Bedrock can be configured instead. AI returns structured tactics, a summary and actions after server-side redaction. Evidence that does not match the original span is discarded. AI cannot lower a score or produce a clean verdict by itself.</p><p>Google Web Risk, URLhaus, PhishTank, OpenPhish and VirusTotal are optional and independent. Only the extracted URL is sent to them. A confirmed malicious URL forces Likely a scam. Clean, flagged and unavailable results are all shown. A source that was not configured or failed is never presented as clean.</p></section>
-    <section><h2>Link checks and shorteners</h2><p>Rules cover IP hosts, credentials before @, punycode, mixed-script characters, shorteners, suspicious suffixes and lookalike domains. Optional expansion uses HEAD only, at most five redirects, with DNS and private-network checks at every hop. Page bodies are never fetched.</p></section>
-    <section><h2>Fixture evaluation</h2><p>The rules engine detected 40 of 40 authored scam fixtures for 100 percent recall and produced 0 detections among 40 authored legitimate fixtures for a 0 percent false-positive rate. The set includes OTPs, debit alerts, delivery updates and government notices.</p><p>These numbers describe only this evaluation set. They are not real-world accuracy statistics and must not be used to claim performance on new scams.</p></section>
-    <section><h2>False positives and known limits</h2><p>Urgent genuine messages can be flagged. New domains and new tactics may be missed. Official domains also change, so region packs need review. A clean result never proves that a sender is genuine.</p><p>Threat feeds may not know a new URL. AI explanations can be incomplete. Screenshots can be read incorrectly. Always verify important claims through an official app, website or phone number.</p></section>
-  </div></main>;
+  return (
+    <main>
+      <PageHero title="Methodology and limits">
+        <p>
+          ScamShield explains its decisions so you can check them. It does not prove that
+          a message is genuine or fraudulent.
+        </p>
+      </PageHero>
+      <div className="container prose-page">
+        <section>
+          <h2>How scoring works</h2>
+          <p>
+            Local rules produce weighted signals with stable IDs and exact source spans.
+            The combiner takes the highest weight in each tactic and up to two smaller
+            supporting contributions. The total is capped at 100.
+          </p>
+          <ul>
+            <li>55 to 100: Likely a scam.</li>
+            <li>25 to 54: Suspicious.</li>
+            <li>Below 25: No clear signs of fraud, with a caveat.</li>
+            <li>Very short content: Not enough to tell.</li>
+          </ul>
+          <p>
+            Confidence is separate from the score. It reflects the amount and independence
+            of available evidence, not the probability that a message is fraudulent.
+          </p>
+        </section>
+        <section>
+          <h2>AI and threat sources</h2>
+          <p>
+            Gemini is the default provider when configured. Bedrock can be configured
+            instead. AI returns structured tactics, a summary and actions after
+            server-side redaction. Evidence that does not match the original span is
+            discarded. AI cannot lower a score or produce a clean verdict by itself.
+          </p>
+          <p>
+            Google Web Risk, URLhaus, PhishTank, OpenPhish and VirusTotal are optional and
+            independent. Only the extracted URL is sent to them. A confirmed malicious URL
+            forces Likely a scam. Clean, flagged and unavailable results are all shown. A
+            source that was not configured or failed is never presented as clean.
+          </p>
+        </section>
+        <section>
+          <h2>Link checks and shorteners</h2>
+          <p>
+            Rules cover IP hosts, credentials before @, punycode, mixed-script characters,
+            shorteners, suspicious suffixes and lookalike domains. Optional expansion uses
+            HEAD only, at most five redirects, with DNS and private-network checks at
+            every hop. Page bodies are never fetched.
+          </p>
+        </section>
+        <section>
+          <h2>Fixture evaluation</h2>
+          <p>
+            The rules engine detected 40 of 40 authored scam fixtures for 100 percent
+            recall and produced 0 detections among 40 authored legitimate fixtures for a 0
+            percent false-positive rate. The set includes OTPs, debit alerts, delivery
+            updates and government notices.
+          </p>
+          <p>
+            These numbers describe only this evaluation set. They are not real-world
+            accuracy statistics and must not be used to claim performance on new scams.
+          </p>
+        </section>
+        <section>
+          <h2>False positives and known limits</h2>
+          <p>
+            Urgent genuine messages can be flagged. New domains and new tactics may be
+            missed. Official domains also change, so region packs need review. A clean
+            result never proves that a sender is genuine.
+          </p>
+          <p>
+            Threat feeds may not know a new URL. AI explanations can be incomplete.
+            Screenshots can be read incorrectly. Always verify important claims through an
+            official app, website or phone number.
+          </p>
+        </section>
+      </div>
+    </main>
+  );
 }

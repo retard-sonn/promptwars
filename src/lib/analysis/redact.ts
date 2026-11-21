@@ -7,7 +7,8 @@ function placeholder(raw: string): string {
   const digits = raw.replace(/\D/g, "");
   if (/^\d{3}-\d{2}-\d{4}$/.test(raw)) return "[SSN]";
   if (digits.length >= 12 && digits.length <= 19) return "[IDENTITY_NUMBER]";
-  if (raw.startsWith("+") || digits.length === 10 || digits.length === 11) return "[PHONE]";
+  if (raw.startsWith("+") || digits.length === 10 || digits.length === 11)
+    return "[PHONE]";
   if (digits.length >= 4 && digits.length <= 8) return "[CODE]";
   return "[NUMBER]";
 }
@@ -24,7 +25,12 @@ export function redactText(input: string): RedactedText {
   for (const match of input.matchAll(sensitiveNumber)) {
     const index = match.index ?? 0;
     for (let offset = 0; offset < index - cursor; offset += 1) {
-      appendMapped(result, input[cursor + offset] ?? "", cursor + offset, cursor + offset + 1);
+      appendMapped(
+        result,
+        input[cursor + offset] ?? "",
+        cursor + offset,
+        cursor + offset + 1,
+      );
     }
     appendMapped(result, placeholder(match[0]), index, index + match[0].length);
     cursor = index + match[0].length;

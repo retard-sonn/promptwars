@@ -19,16 +19,18 @@ export function AmbientMotion() {
       }
     })();
     const timer = setTimeout(() => {
-      void import("@fiddle-digital/string-tune").then(({ StringTune, StringParallax, StringMagnetic, StringProgress }) => {
-      const tune = StringTune.getInstance();
-      tune.scrollDesktopMode = "default";
-      tune.scrollMobileMode = "default";
-      tune.use(StringParallax);
-      tune.use(StringMagnetic);
-      tune.use(StringProgress);
-      tune.start(60);
-      cleanup = () => tune.destroy();
-    });
+      void import("@fiddle-digital/string-tune").then(
+        ({ StringTune, StringParallax, StringMagnetic, StringProgress }) => {
+          const tune = StringTune.getInstance();
+          tune.scrollDesktopMode = "default";
+          tune.scrollMobileMode = "default";
+          tune.use(StringParallax);
+          tune.use(StringMagnetic);
+          tune.use(StringProgress);
+          tune.start(60);
+          cleanup = () => tune.destroy();
+        },
+      );
     }, delay);
     return () => {
       clearTimeout(timer);

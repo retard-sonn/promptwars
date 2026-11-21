@@ -2,10 +2,38 @@ import type { NormalisedText, Span } from "./types";
 
 const zeroWidth = /[​‌‍⁠﻿]/g;
 const homoglyphs: Record<string, string> = {
-  а: "a", А: "A", е: "e", Е: "E", о: "o", О: "O", р: "p", Р: "P",
-  с: "c", С: "C", х: "x", Х: "X", у: "y", У: "Y", і: "i", І: "I",
-  ј: "j", Ј: "J", ѕ: "s", Ѕ: "S", α: "a", Α: "A", ο: "o", Ο: "O",
-  ρ: "p", Ρ: "P", τ: "t", Τ: "T", υ: "u", Υ: "U", χ: "x", Χ: "X",
+  а: "a",
+  А: "A",
+  е: "e",
+  Е: "E",
+  о: "o",
+  О: "O",
+  р: "p",
+  Р: "P",
+  с: "c",
+  С: "C",
+  х: "x",
+  Х: "X",
+  у: "y",
+  У: "Y",
+  і: "i",
+  І: "I",
+  ј: "j",
+  Ј: "J",
+  ѕ: "s",
+  Ѕ: "S",
+  α: "a",
+  Α: "A",
+  ο: "o",
+  Ο: "O",
+  ρ: "p",
+  Ρ: "P",
+  τ: "t",
+  Τ: "T",
+  υ: "u",
+  Υ: "U",
+  χ: "x",
+  Χ: "X",
 };
 
 export function normaliseText(input: string): NormalisedText {
@@ -38,8 +66,13 @@ export function normaliseText(input: string): NormalisedText {
   };
 }
 
-export function toOriginalSpan(span: Span, normalised: NormalisedText, originalLength: number): Span {
-  if (span.end <= span.start || normalised.starts.length === 0) return { start: 0, end: 0 };
+export function toOriginalSpan(
+  span: Span,
+  normalised: NormalisedText,
+  originalLength: number,
+): Span {
+  if (span.end <= span.start || normalised.starts.length === 0)
+    return { start: 0, end: 0 };
   const start = normalised.starts[span.start] ?? originalLength;
   const end = normalised.ends[span.end - 1] ?? start;
   return { start, end: Math.max(start, end) };

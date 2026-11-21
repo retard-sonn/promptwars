@@ -1,6 +1,10 @@
 "use client";
 
-const allowedEvents = new Set(["report_saved", "practice_completed", "emergency_checklist_created"]);
+const allowedEvents = new Set([
+  "report_saved",
+  "practice_completed",
+  "emergency_checklist_created",
+]);
 const allowedProperties = new Set(["region", "verdict", "scoreBand", "count"]);
 let initialized = false;
 export function initAnalytics() {
@@ -17,8 +21,13 @@ export function initAnalytics() {
     });
   });
 }
-export function trackClientEvent(name: string, properties: Record<string, string | number> = {}) {
+export function trackClientEvent(
+  name: string,
+  properties: Record<string, string | number> = {},
+) {
   if (!initialized || !allowedEvents.has(name)) return;
-  const clean = Object.fromEntries(Object.entries(properties).filter(([key]) => allowedProperties.has(key)));
+  const clean = Object.fromEntries(
+    Object.entries(properties).filter(([key]) => allowedProperties.has(key)),
+  );
   void import("posthog-js").then(({ default: posthog }) => posthog.capture(name, clean));
 }

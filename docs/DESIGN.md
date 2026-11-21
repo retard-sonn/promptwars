@@ -6,24 +6,24 @@ The composer is the primary hero. The interface serves a worried, non-technical 
 
 ## Colour tokens
 
-| Token | Value | Purpose |
-|---|---|---|
-| white | #FFFFFF | Glass edges and highlights |
-| snow | #FFF9F4 | Page base |
-| cream | #FFF1E6 | Section tint |
-| persimmon 100 | #FFE3D1 | Soft fills |
-| persimmon 200 | #FFC7A3 | Backdrop forms |
-| persimmon 300 | #FFA571 | Backdrop forms |
-| persimmon 400 | #FF8340 | Icons and accents |
-| persimmon 500 | #FF6A1F | Primary controls |
-| persimmon 600 | #EC5800 | Pressed controls |
-| persimmon 700 | #BF4600 | Text accent on white |
-| ink | #0A0A0A | Primary text |
-| ink 2 | rgba(10,10,10,0.70) | Secondary text |
-| ink 3 | rgba(10,10,10,0.58) | Tertiary text |
-| alarm | #D92D1A | Likely a scam |
-| caution | #F5A300 | Suspicious |
-| ok | #1F9D55 | No clear signs of fraud |
+| Token         | Value               | Purpose                    |
+| ------------- | ------------------- | -------------------------- |
+| white         | #FFFFFF             | Glass edges and highlights |
+| snow          | #FFF9F4             | Page base                  |
+| cream         | #FFF1E6             | Section tint               |
+| persimmon 100 | #FFE3D1             | Soft fills                 |
+| persimmon 200 | #FFC7A3             | Backdrop forms             |
+| persimmon 300 | #FFA571             | Backdrop forms             |
+| persimmon 400 | #FF8340             | Icons and accents          |
+| persimmon 500 | #FF6A1F             | Primary controls           |
+| persimmon 600 | #EC5800             | Pressed controls           |
+| persimmon 700 | #BF4600             | Text accent on white       |
+| ink           | #0A0A0A             | Primary text               |
+| ink 2         | rgba(10,10,10,0.70) | Secondary text             |
+| ink 3         | rgba(10,10,10,0.58) | Tertiary text              |
+| alarm         | #D92D1A             | Likely a scam              |
+| caution       | #F5A300             | Suspicious                 |
+| ok            | #1F9D55             | No clear signs of fraud    |
 
 Text uses ink or its defined tints. White text is restricted to black surfaces. Verdicts always combine a written label, icon and distinct silhouette. Colour is never the only signal. No decorative hues beyond this palette.
 

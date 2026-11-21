@@ -10,7 +10,13 @@ async function loadOwnedReport(id: string) {
   if (!supabase) throw new Error("storage_unavailable");
   const user = await getOptionalUser();
   if (!user) throw new Error("authentication_required");
-  const { data, error } = await supabase.from("reports").select("id, user_id, channel, region, verdict, score, confidence, summary, signals, urls, message_redacted, provider_trace, created_at").eq("id", id).single();
+  const { data, error } = await supabase
+    .from("reports")
+    .select(
+      "id, user_id, channel, region, verdict, score, confidence, summary, signals, urls, message_redacted, provider_trace, created_at",
+    )
+    .eq("id", id)
+    .single();
   if (error) throw new Error("not_found");
   const row = storedReportRowSchema.parse(data);
   assertReportOwner(user.id, row.user_id);
@@ -18,23 +24,34 @@ async function loadOwnedReport(id: string) {
 }
 function errorResponse(error: unknown) {
   const code = error instanceof Error ? error.message : "unknown";
-  if (code === "storage_unavailable") return apiError("The account service is not configured.", 503, code);
-  if (code === "authentication_required") return apiError("Sign in to access this report.", 401, code);
+  if (code === "storage_unavailable")
+    return apiError("The account service is not configured.", 503, code);
+  if (code === "authentication_required")
+    return apiError("Sign in to access this report.", 401, code);
   if (code === "not_found") return apiError("Report not found.", 404, code);
-  if (code === "forbidden") return apiError("You do not have access to this report.", 403, code);
+  if (code === "forbidden")
+    return apiError("You do not have access to this report.", 403, code);
   return apiError("The report could not be loaded.", 500, "report_failed");
 }
-export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
   try {
     const { id } = await params;
     z.string().uuid().parse(id);
     const { row } = await loadOwnedReport(id);
-    return Response.json(mapStoredReport(row), { headers: { "cache-control": "no-store" } });
+    return Response.json(mapStoredReport(row), {
+      headers: { "cache-control": "no-store" },
+    });
   } catch (error) {
     return errorResponse(error);
   }
 }
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
   try {
     const { id } = await params;
     z.string().uuid().parse(id);

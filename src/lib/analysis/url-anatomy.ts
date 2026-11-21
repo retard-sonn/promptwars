@@ -4,7 +4,7 @@ export function splitHost(host: string) {
   const parts = host.toLowerCase().split(".").filter(Boolean);
   const suffix = parts.slice(-2).join(".");
   const compound = ["co.uk", "org.uk", "gov.uk", "co.in", "net.in", "org.in", "com.au"];
-  const tld = compound.includes(suffix) ? suffix : parts.at(-1) ?? "";
+  const tld = compound.includes(suffix) ? suffix : (parts.at(-1) ?? "");
   const domainCount = tld.split(".").length + 1;
   const domain = parts.at(-domainCount) ?? "";
   const subdomain = parts.slice(0, -domainCount).join(".");

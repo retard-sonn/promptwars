@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { foldHomoglyphs, normaliseText, toOriginalSpan } from "../../src/lib/analysis/normalise";
+import {
+  foldHomoglyphs,
+  normaliseText,
+  toOriginalSpan,
+} from "../../src/lib/analysis/normalise";
 
 describe("normaliseText", () => {
   it("normalises compatibility characters", () => {
@@ -21,6 +25,9 @@ describe("normaliseText", () => {
     const original = "𝒜 urgent";
     const normalised = normaliseText(original);
     expect(normalised.text).toBe("A urgent");
-    expect(toOriginalSpan({ start: 0, end: 1 }, normalised, original.length)).toEqual({ start: 0, end: 2 });
+    expect(toOriginalSpan({ start: 0, end: 1 }, normalised, original.length)).toEqual({
+      start: 0,
+      end: 2,
+    });
   });
 });

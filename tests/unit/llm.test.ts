@@ -4,14 +4,26 @@ import type { LlmProvider } from "../../src/lib/llm/schemas";
 
 function providerWith(explain: LlmProvider["explain"]): LlmProvider {
   return {
-    name: "Gemini", model: "test-model", explain,
+    name: "Gemini",
+    model: "test-model",
+    explain,
     readScreenshot: vi.fn(),
   };
 }
 const explanation = {
   tactics: [
-    { name: "payment demand", evidence: { quote: "Pay Rs 49", start: 0, end: 9 }, explanation: "Payment is requested", confidence: 0.9 },
-    { name: "urgency", evidence: { quote: "invented", start: 50, end: 58 }, explanation: "Invalid evidence", confidence: 0.9 },
+    {
+      name: "payment demand",
+      evidence: { quote: "Pay Rs 49", start: 0, end: 9 },
+      explanation: "Payment is requested",
+      confidence: 0.9,
+    },
+    {
+      name: "urgency",
+      evidence: { quote: "invented", start: 50, end: 58 },
+      explanation: "Invalid evidence",
+      confidence: 0.9,
+    },
   ],
   impersonatedEntity: null,
   inferredIntent: "Collect a payment",
@@ -20,7 +32,10 @@ const explanation = {
 };
 describe("runLlm", () => {
   it("discards hallucinated evidence spans", async () => {
-    const result = await runLlm("Pay Rs 49 now", providerWith(async () => explanation));
+    const result = await runLlm(
+      "Pay Rs 49 now",
+      providerWith(async () => explanation),
+    );
     expect(result.signals).toHaveLength(1);
     expect(result.signals[0]?.quote).toBe("Pay Rs 49");
     expect(result.trace.status).toBe("completed");

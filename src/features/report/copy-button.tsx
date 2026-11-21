@@ -14,5 +14,10 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
       setState("Copy failed");
     }
   }
-  return <button type="button" className="copy-button" onClick={copy}><Icon name="copy" size={17} />{state}</button>;
+  return (
+    <button type="button" className="copy-button" onClick={copy}>
+      <Icon name="copy" size={17} />
+      {state}
+    </button>
+  );
 }

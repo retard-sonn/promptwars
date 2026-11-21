@@ -21,29 +21,47 @@ export function combinedScore(signals: Signal[]) {
   let score = 0;
   for (const weights of tactics.values()) {
     weights.sort((a, b) => b - a);
-    score += (weights[0] ?? 0) + weights.slice(1, 3).reduce((sum, weight) => sum + Math.min(5, weight * 0.15), 0);
+    score +=
+      (weights[0] ?? 0) +
+      weights.slice(1, 3).reduce((sum, weight) => sum + Math.min(5, weight * 0.15), 0);
   }
   return Math.min(100, Math.round(score));
 }
 export function summaryFor(verdict: Verdict) {
-  if (verdict === "Likely a scam") return "Several warning signs suggest fraud. Do not reply, pay or use its links while you verify independently.";
-  if (verdict === "Suspicious") return "Some details need an independent check before you reply, pay or share information.";
-  if (verdict === "No clear signs of fraud") return "No rule-based warning signs were found. This does not prove the message is genuine.";
+  if (verdict === "Likely a scam")
+    return "Several warning signs suggest fraud. Do not reply, pay or use its links while you verify independently.";
+  if (verdict === "Suspicious")
+    return "Some details need an independent check before you reply, pay or share information.";
+  if (verdict === "No clear signs of fraud")
+    return "No rule-based warning signs were found. This does not prove the message is genuine.";
   return "There is not enough content for a useful check. Add the full message or a link.";
 }
 
-export function analyzeMessage(message: string, region: RegionId = "generic"): RulesResult {
+export function analyzeMessage(
+  message: string,
+  region: RegionId = "generic",
+): RulesResult {
   const normalised = normaliseText(message);
   const extraction = extract(normalised.text, region);
-  const links = extraction.entities.filter((entity) => entity.kind === "url").slice(0, 5).map((entity) => analyseLink(entity.value, entity.span, region));
+  const links = extraction.entities
+    .filter((entity) => entity.kind === "url")
+    .slice(0, 5)
+    .map((entity) => analyseLink(entity.value, entity.span, region));
   const textSignals = runTextRules(normalised.text);
-  const signals = [...textSignals, ...linksToSignals(links), ...runSenderRules(normalised.text, extraction, region)].map((signal) => {
+  const signals = [
+    ...textSignals,
+    ...linksToSignals(links),
+    ...runSenderRules(normalised.text, extraction, region),
+  ].map((signal) => {
     const span = toOriginalSpan(signal.span, normalised, message.length);
     return { ...signal, span, quote: message.slice(span.start, span.end) };
   });
   const score = combinedScore(signals);
   const verdict = verdictFor(score, message, links);
-  const confidence = verdict === "Not enough to tell" ? 0.2 : Math.min(0.96, 0.38 + score / 180 + Math.min(0.12, signals.length * 0.025));
+  const confidence =
+    verdict === "Not enough to tell"
+      ? 0.2
+      : Math.min(0.96, 0.38 + score / 180 + Math.min(0.12, signals.length * 0.025));
   return {
     score,
     confidence: Number(confidence.toFixed(2)),
@@ -51,7 +69,10 @@ export function analyzeMessage(message: string, region: RegionId = "generic"): R
     signals,
     links,
     extraction,
-    normalisation: { mixedScript: normalised.mixedScript, zeroWidthRemoved: normalised.zeroWidthRemoved },
+    normalisation: {
+      mixedScript: normalised.mixedScript,
+      zeroWidthRemoved: normalised.zeroWidthRemoved,
+    },
     summary: summaryFor(verdict),
   };
 }

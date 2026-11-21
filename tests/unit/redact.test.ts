@@ -3,7 +3,8 @@ import { redactedSpanToOriginal, redactText } from "../../src/lib/analysis/redac
 
 describe("redactText", () => {
   it("masks codes, identity numbers and phone numbers", () => {
-    const original = "OTP 123456 card 4242 4242 4242 4242 Aadhaar 1234 5678 9012 SSN 123-45-6789 phone +1 202 555 0123";
+    const original =
+      "OTP 123456 card 4242 4242 4242 4242 Aadhaar 1234 5678 9012 SSN 123-45-6789 phone +1 202 555 0123";
     const result = redactText(original);
     expect(result.text).toContain("[CODE]");
     expect(result.text).toContain("[IDENTITY_NUMBER]");
